@@ -10,13 +10,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Syfaro/telegram-bot-api"
+	tgbotapi "github.com/Syfaro/telegram-bot-api"
 	"github.com/rivo/uniseg"
 )
 
 const (
-	token = "telegram_bot token"
-	boss = "your username"
+	token = ""
+	boss  = ""
 )
 
 func main() {
@@ -40,6 +40,7 @@ func main() {
 	updates, err := bot.GetUpdatesChan(ucfg)
 	if err != nil {
 		err = fmt.Errorf("can't get updates channel: %s", err)
+		panic(err)
 	}
 	time.Sleep(time.Millisecond * 500)
 	updates.Clear()
@@ -157,14 +158,14 @@ L:
 				}
 				text := getText(update.Message.Text)
 				banned[text] = true
-				reply = "@"+text + ", задолбал, забанен"
+				reply = "@" + text + ", задолбал, забанен"
 			case "unban":
 				if user != boss {
 					continue L
 				}
 				text := getText(update.Message.Text)
 				banned[text] = false
-				reply = "@"+text + ", помилован, разбанен"
+				reply = "@" + text + ", помилован, разбанен"
 			default:
 				continue L
 			}
